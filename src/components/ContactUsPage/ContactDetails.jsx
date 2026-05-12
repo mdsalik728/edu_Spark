@@ -15,7 +15,7 @@ const contactDetails = [
     heading: "Visit us",
     description: "Come and say hello at our office HQ.",
     details:
-      "Jamalpur , Aligarh ,Uttar Pradesh ,202001 ",
+      "Jamia Millia Islamia,New Delhi, Delhi 110025, India",
   },
   {
     icon: "IoCall",
