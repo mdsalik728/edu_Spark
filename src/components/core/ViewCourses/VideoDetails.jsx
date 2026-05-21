@@ -53,10 +53,10 @@ const VideoDetails = () => {
         navigate(`/dashboard/enrolled-courses`);
       } else {
         const filteredData = courseSectionData.filter(
-          (course) => course._id === sectionId
+          (course) => course._id === sectionId,
         );
         const filteredVideoData = filteredData?.[0]?.SubSection.filter(
-          (data) => data._id === subSectionId
+          (data) => data._id === subSectionId,
         );
         setVideoData(filteredVideoData?.[0] || null);
         setPreviewSource(courseEntireData.thumbnail);
@@ -99,7 +99,6 @@ const VideoDetails = () => {
           block: "start",
         });
       }, 300);
-
     } catch (error) {
       toast.error("Failed to load quiz");
       // On error → still auto-complete so student isn't stuck
@@ -131,7 +130,7 @@ const VideoDetails = () => {
   // ─── Navigation Helpers ───────────────────────────────────────────
   const isFirstVideo = () => {
     const currentSectionIndx = courseSectionData.findIndex(
-      (data) => data._id === sectionId
+      (data) => data._id === sectionId,
     );
     const currentSubSectionIndx = courseSectionData[
       currentSectionIndx
@@ -141,7 +140,7 @@ const VideoDetails = () => {
 
   const isLastVideo = () => {
     const currentSectionIndx = courseSectionData.findIndex(
-      (data) => data._id === sectionId
+      (data) => data._id === sectionId,
     );
     const noOfSubsections =
       courseSectionData[currentSectionIndx].SubSection.length;
@@ -156,7 +155,7 @@ const VideoDetails = () => {
 
   const goToNextVideo = () => {
     const currentSectionIndx = courseSectionData.findIndex(
-      (data) => data._id === sectionId
+      (data) => data._id === sectionId,
     );
     const noOfSubsections =
       courseSectionData[currentSectionIndx].SubSection.length;
@@ -170,21 +169,21 @@ const VideoDetails = () => {
           currentSubSectionIndx + 1
         ]._id;
       navigate(
-        `/view-course/${courseId}/section/${sectionId}/sub-section/${nextSubSectionId}`
+        `/view-course/${courseId}/section/${sectionId}/sub-section/${nextSubSectionId}`,
       );
     } else {
       const nextSectionId = courseSectionData[currentSectionIndx + 1]._id;
       const nextSubSectionId =
         courseSectionData[currentSectionIndx + 1].SubSection[0]._id;
       navigate(
-        `/view-course/${courseId}/section/${nextSectionId}/sub-section/${nextSubSectionId}`
+        `/view-course/${courseId}/section/${nextSectionId}/sub-section/${nextSubSectionId}`,
       );
     }
   };
 
   const goToPrevVideo = () => {
     const currentSectionIndx = courseSectionData.findIndex(
-      (data) => data._id === sectionId
+      (data) => data._id === sectionId,
     );
     const currentSubSectionIndx = courseSectionData[
       currentSectionIndx
@@ -196,7 +195,7 @@ const VideoDetails = () => {
           currentSubSectionIndx - 1
         ]._id;
       navigate(
-        `/view-course/${courseId}/section/${sectionId}/sub-section/${prevSubSectionId}`
+        `/view-course/${courseId}/section/${sectionId}/sub-section/${prevSubSectionId}`,
       );
     } else {
       const prevSectionId = courseSectionData[currentSectionIndx - 1]._id;
@@ -207,17 +206,14 @@ const VideoDetails = () => {
           prevSubSectionLength - 1
         ]._id;
       navigate(
-        `/view-course/${courseId}/section/${prevSectionId}/sub-section/${prevSubSectionId}`
+        `/view-course/${courseId}/section/${prevSectionId}/sub-section/${prevSubSectionId}`,
       );
     }
   };
 
   const handleLectureCompletion = async () => {
     setLoading(true);
-    const res = await markLectureAsComplete(
-      { courseId, subSectionId },
-      token
-    );
+    const res = await markLectureAsComplete({ courseId, subSectionId }, token);
     if (res) {
       dispatch(updateCompletedLectures(subSectionId));
     }
@@ -229,7 +225,7 @@ const VideoDetails = () => {
     if (!courseSectionData.length)
       return { current: 0, total: 0, sectionName: "" };
     const currentSectionIndx = courseSectionData.findIndex(
-      (data) => data._id === sectionId
+      (data) => data._id === sectionId,
     );
     if (currentSectionIndx === -1)
       return { current: 0, total: 0, sectionName: "" };
@@ -259,8 +255,13 @@ const VideoDetails = () => {
   const isCompleted = completedLectures.includes(subSectionId);
 
   // ─── Shared: Nav Buttons (used in both overlay + post-quiz) ──────
-  const NavigationButtons = ({ includeRewatch = true, overlayStyle = false }) => (
-    <div className={`flex items-center gap-2 sm:gap-3 ${overlayStyle ? "mt-2" : "w-full sm:w-auto"}`}>
+  const NavigationButtons = ({
+    includeRewatch = true,
+    overlayStyle = false,
+  }) => (
+    <div
+      className={`flex items-center gap-2 sm:gap-3 ${overlayStyle ? "mt-2" : "w-full sm:w-auto"}`}
+    >
       {includeRewatch && (
         <button
           onClick={() => {
@@ -273,9 +274,10 @@ const VideoDetails = () => {
           }}
           className={`
             flex items-center justify-center gap-1.5 group
-            ${overlayStyle
-              ? "bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 hover:border-white/20 rounded-xl px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-medium text-white"
-              : "flex-1 sm:flex-none rounded-lg sm:rounded-xl border border-richblack-600 hover:border-richblack-500 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-richblack-300 hover:text-richblack-100 hover:bg-richblack-700/50"
+            ${
+              overlayStyle
+                ? "bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 hover:border-white/20 rounded-xl px-5 sm:px-6 py-2.5 sm:py-2.5 text-sm sm:text-base font-medium text-richblack-900"
+                : "flex-1 sm:flex-none rounded-lg sm:rounded-xl border border-richblack-600 hover:border-richblack-500 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-richblack-300 hover:text-richblack-100 hover:bg-richblack-700/50"
             }
             transition-all duration-300 hover:scale-[1.02]
           `}
@@ -293,9 +295,10 @@ const VideoDetails = () => {
           onClick={goToPrevVideo}
           className={`
             flex items-center justify-center gap-1.5
-            ${overlayStyle
-              ? "bg-richblack-700/80 hover:bg-richblack-600 border border-richblack-600 hover:border-richblack-500 rounded-xl px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-medium text-richblack-100"
-              : "flex-1 sm:flex-none rounded-lg sm:rounded-xl bg-richblack-700 hover:bg-richblack-600 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-white"
+            ${
+              overlayStyle
+                ? "bg-richblack-700/80 hover:bg-richblack-600 border border-richblack-600 hover:border-richblack-500 rounded-xl px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-medium text-richblack-100"
+                : "flex-1 sm:flex-none rounded-lg sm:rounded-xl bg-richblack-700 hover:bg-richblack-600 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-richblack-900"
             }
             transition-all duration-300 disabled:opacity-50
           `}
@@ -311,9 +314,10 @@ const VideoDetails = () => {
           onClick={goToNextVideo}
           className={`
             flex items-center justify-center gap-1.5
-            ${overlayStyle
-              ? "bg-yellow-50 hover:bg-yellow-100 rounded-xl px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-richblack-900 shadow-lg shadow-yellow-50/20"
-              : "flex-1 sm:flex-none rounded-lg sm:rounded-xl bg-yellow-50 hover:bg-yellow-100 px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-richblack-900 shadow-md shadow-yellow-50/10"
+            ${
+              overlayStyle
+                ? "bg-yellow-50 hover:bg-yellow-100 rounded-xl px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-richblack-900 shadow-lg shadow-yellow-50/20"
+                : "flex-1 sm:flex-none rounded-lg sm:rounded-xl bg-yellow-50 hover:bg-yellow-100 px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-richblack-900 shadow-md shadow-yellow-50/10"
             }
             transition-all duration-300 hover:scale-[1.02] disabled:opacity-50
           `}
@@ -328,12 +332,13 @@ const VideoDetails = () => {
   // ─── Render ───────────────────────────────────────────────────────
   return (
     <div className="flex flex-col w-full max-w-5xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6">
-
       {/* ── Lecture Info Bar ──────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-          <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8
-            rounded-lg bg-richblack-700 text-xs sm:text-sm font-bold text-yellow-50">
+          <span
+            className="flex-shrink-0 flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8
+            rounded-lg bg-richblack-700 text-xs sm:text-sm font-bold text-yellow-50"
+          >
             {lectureInfo.current}
           </span>
           <div className="min-w-0">
@@ -346,9 +351,11 @@ const VideoDetails = () => {
           </div>
         </div>
         {isCompleted && (
-          <span className="flex items-center gap-1.5 text-xs sm:text-sm font-medium
+          <span
+            className="flex items-center gap-1.5 text-xs sm:text-sm font-medium
             text-emerald-400 bg-emerald-400/10 px-2.5 sm:px-3 py-1 sm:py-1.5
-            rounded-full border border-emerald-400/20 self-start sm:self-auto">
+            rounded-full border border-emerald-400/20 self-start sm:self-auto"
+          >
             <HiOutlineCheckCircle className="text-sm sm:text-base" />
             Completed
           </span>
@@ -356,18 +363,28 @@ const VideoDetails = () => {
       </div>
 
       {/* ── Video Player ──────────────────────────────────────────── */}
-      <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-richblack-900
-        shadow-[0_0_40px_rgba(0,0,0,0.5)] ring-1 ring-richblack-700/50">
+      <div
+        className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-richblack-900
+        shadow-[0_0_40px_rgba(0,0,0,0.5)] ring-1 ring-richblack-700/50"
+      >
         {!videoData ? (
           <div className="relative aspect-video">
-            <img src={previewSource} alt="Preview" className="h-full w-full object-cover" />
+            <img
+              src={previewSource}
+              alt="Preview"
+              className="h-full w-full object-cover"
+            />
             <div className="absolute inset-0 bg-richblack-900/60 flex items-center justify-center">
               <div className="animate-pulse flex flex-col items-center gap-3">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-richblack-700
-                  flex items-center justify-center">
+                <div
+                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-richblack-700
+                  flex items-center justify-center"
+                >
                   <HiOutlinePlay className="text-xl sm:text-2xl text-richblack-400" />
                 </div>
-                <p className="text-xs sm:text-sm text-richblack-400">Loading video...</p>
+                <p className="text-xs sm:text-sm text-richblack-400">
+                  Loading video...
+                </p>
               </div>
             </div>
           </div>
@@ -384,16 +401,17 @@ const VideoDetails = () => {
 
               {/* ── End Overlay (shown when no quiz / already completed) ── */}
               {videoEnded && !showQuiz && (
-                <div className="absolute inset-0 z-[100] flex items-center justify-center
+                <div
+                  className="absolute inset-0 z-[100] flex items-center justify-center
                   bg-gradient-to-t from-richblack-900 via-richblack-900/90
-                  to-richblack-900/70 backdrop-blur-sm">
+                  to-richblack-900/70 backdrop-blur-sm"
+                >
                   <div className="flex flex-col items-center gap-4 sm:gap-6 px-4 w-full max-w-md">
-
                     {/* Loading Quiz */}
                     {loadingQuiz && (
                       <div className="flex flex-col items-center gap-3">
-                        <BiLoaderAlt className="text-3xl sm:text-4xl text-yellow-50 animate-spin" />
-                        <p className="text-sm sm:text-base text-yellow-50/80 font-medium">
+                        <BiLoaderAlt className="text-3xl sm:text-4xl text-yellow-700 animate-spin" />
+                        <p className="text-sm sm:text-base text-yellow-700/80 font-medium">
                           Preparing your quiz...
                         </p>
                       </div>
@@ -402,8 +420,10 @@ const VideoDetails = () => {
                     {/* ─── CASE 1: Already completed (revisiting) ──────── */}
                     {!loadingQuiz && isCompleted && !autoCompleted && (
                       <>
-                        <div className="flex items-center gap-2 bg-emerald-500/10
-                          border border-emerald-500/20 rounded-full px-4 py-2">
+                        <div
+                          className="flex items-center gap-2 bg-emerald-500/10
+                          border border-emerald-500/20 rounded-full px-4 py-2"
+                        >
                           <HiOutlineCheckCircle className="text-lg sm:text-xl text-emerald-400" />
                           <span className="text-xs sm:text-sm font-medium text-emerald-400">
                             Lecture Completed
@@ -416,8 +436,10 @@ const VideoDetails = () => {
                     {/* ─── CASE 2: Just auto-completed (no quiz) ────────── */}
                     {!loadingQuiz && autoCompleted && (
                       <>
-                        <div className="flex items-center gap-2 bg-emerald-500/10
-                          border border-emerald-500/20 rounded-full px-4 py-2">
+                        <div
+                          className="flex items-center gap-2 bg-emerald-500/10
+                          border border-emerald-500/20 rounded-full px-4 py-2"
+                        >
                           <HiOutlineCheckCircle className="text-lg sm:text-xl text-emerald-400" />
                           <span className="text-xs sm:text-sm font-medium text-emerald-400">
                             Lecture Completed ✓
@@ -429,7 +451,6 @@ const VideoDetails = () => {
                         <NavigationButtons overlayStyle={true} />
                       </>
                     )}
-
                   </div>
                 </div>
               )}
@@ -442,12 +463,16 @@ const VideoDetails = () => {
       {videoEnded && showQuiz && quizQuestions.length > 0 && (
         <div ref={quizRef} className="mt-6 sm:mt-8 animate-fadeInUp">
           {/* Quiz Banner */}
-          <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row items-start sm:items-center
+          <div
+            className="mb-4 sm:mb-6 flex flex-col sm:flex-row items-start sm:items-center
             gap-3 sm:gap-4 rounded-xl sm:rounded-2xl
             bg-gradient-to-r from-yellow-50/10 to-yellow-50/5
-            px-4 sm:px-6 py-4 sm:py-5 border border-yellow-50/15">
-            <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12
-              rounded-xl bg-yellow-50/15 flex-shrink-0">
+            px-4 sm:px-6 py-4 sm:py-5 border border-yellow-50/15"
+          >
+            <div
+              className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12
+              rounded-xl bg-yellow-50/15 flex-shrink-0"
+            >
               <FiBookOpen className="text-lg sm:text-xl text-yellow-50" />
             </div>
             <div className="flex-1">
@@ -473,13 +498,17 @@ const VideoDetails = () => {
 
           {/* Post-Quiz Pass Navigation */}
           {quizPassed && (
-            <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row items-start sm:items-center
+            <div
+              className="mt-4 sm:mt-6 flex flex-col sm:flex-row items-start sm:items-center
               justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl
               bg-gradient-to-r from-emerald-500/10 to-emerald-500/5
-              p-4 sm:p-5 border border-emerald-500/20 animate-fadeInUp">
+              p-4 sm:p-5 border border-emerald-500/20 animate-fadeInUp"
+            >
               <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10
-                  rounded-full bg-emerald-500/20">
+                <div
+                  className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10
+                  rounded-full bg-emerald-500/20"
+                >
                   <HiOutlineCheckCircle className="text-lg sm:text-xl text-emerald-400" />
                 </div>
                 <div>
@@ -498,15 +527,19 @@ const VideoDetails = () => {
       )}
 
       {/* ── Video Info ───────────────────────────────────────────── */}
-           {/* ── Video Metadata ────────────────────────────────────────── */}
+      {/* ── Video Metadata ────────────────────────────────────────── */}
       <div className="mt-4 sm:mt-6 pb-6 sm:pb-8 border-b border-richblack-700/50">
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold
-          text-richblack-5 leading-tight">
+        <h1
+          className="text-xl sm:text-2xl md:text-3xl font-bold
+          text-richblack-5 leading-tight"
+        >
           {videoData?.title}
         </h1>
         {videoData?.description && (
-          <p className="mt-2 sm:mt-3 text-sm sm:text-base text-richblack-300
-            leading-relaxed max-w-3xl">
+          <p
+            className="mt-2 sm:mt-3 text-sm sm:text-base text-richblack-300
+            leading-relaxed max-w-3xl"
+          >
             {videoData?.description}
           </p>
         )}

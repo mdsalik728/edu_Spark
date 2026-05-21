@@ -16,7 +16,7 @@ const About = () => {
   return (
     <>
       <section className="bg-richblack-700">
-        <div className="relative mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-center text-white">
+        <div className="relative mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-center text-richblack-900">
           <header className="mx-auto py-20 text-4xl font-semibold lg:w-[70%]">
             Driving Innovation in Online Education for a
             <HighlightText text={"Brighter Future"} />
@@ -108,11 +108,11 @@ const About = () => {
       </section>
 
       <StatsComponenet />
-      <section className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-white">
+      <section className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-richblack-900">
         <LearningGrid />
       </section>
-      <section className="mx-auto  flex w-11/12 max-w-maxContent flex-col justify-between  text-white">
-        <h1 className="text-4xl text-white text-center  font-bold">
+      <section className="mx-auto  flex w-11/12 max-w-maxContent flex-col justify-between  text-richblack-900">
+        <h1 className="text-4xl text-richblack-900 text-center  font-bold">
           Get In Touch
         </h1>
         <span className="text-richblack-200 text-center block my-2">

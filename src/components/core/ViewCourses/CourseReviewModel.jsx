@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import {
-  HiOutlineX,
-  HiOutlineStar,
-  HiOutlineGlobeAlt,
-} from "react-icons/hi";
+import { HiOutlineX, HiOutlineStar, HiOutlineGlobeAlt } from "react-icons/hi";
 import { BiLoaderAlt } from "react-icons/bi";
 import { createRating } from "../../../services/operations/courseDetailsAPI";
 import ReactStars from "react-rating-stars-component";
@@ -48,7 +44,7 @@ const CourseReviewModal = ({ setReviewModal }) => {
         rating: data.courseRating,
         review: data.courseExperience,
       },
-      token
+      token,
     );
     setSubmitting(false);
     setReviewModal(false);
@@ -79,16 +75,22 @@ const CourseReviewModal = ({ setReviewModal }) => {
           overflow-hidden animate-scaleIn max-h-[90vh] flex flex-col"
       >
         {/* ── Header ──────────────────────────────────────────── */}
-        <div className="flex-shrink-0 flex items-center justify-between
+        <div
+          className="flex-shrink-0 flex items-center justify-between
           px-5 sm:px-6 py-4 sm:py-5
-          bg-richblack-700/50 border-b border-richblack-700">
+          bg-richblack-700/50 border-b border-richblack-700"
+        >
           <div className="flex items-center gap-2 sm:gap-2.5">
-            <div className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9
-              rounded-lg sm:rounded-xl bg-yellow-50/10">
+            <div
+              className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9
+              rounded-lg sm:rounded-xl bg-yellow-50/10"
+            >
               <HiOutlineStar className="text-base sm:text-lg text-yellow-50" />
             </div>
             <div>
-              <h2 className="text-base sm:text-lg font-bold text-white">Add Review</h2>
+              <h2 className="text-base sm:text-lg font-bold text-richblack-900">
+                Add Review
+              </h2>
               <p className="text-[10px] sm:text-xs text-richblack-400 hidden sm:block">
                 Share your experience
               </p>
@@ -98,7 +100,7 @@ const CourseReviewModal = ({ setReviewModal }) => {
             onClick={() => setReviewModal(false)}
             className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9
               rounded-lg sm:rounded-xl bg-richblack-700 hover:bg-richblack-600
-              text-richblack-300 hover:text-white
+              text-richblack-300 hover:text-richblack-900
               transition-all duration-200 hover:rotate-90"
           >
             <HiOutlineX className="text-base sm:text-lg" />
@@ -116,11 +118,13 @@ const CourseReviewModal = ({ setReviewModal }) => {
                 className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl object-cover
                   ring-2 ring-richblack-600"
               />
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full
-                bg-emerald-500 border-2 border-richblack-800" />
+              <div
+                className="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full
+                bg-emerald-500 border-2 border-richblack-800"
+              />
             </div>
             <div>
-              <p className="text-sm sm:text-base font-semibold text-white">
+              <p className="text-sm sm:text-base font-semibold text-richblack-900">
                 {user?.firstName} {user?.lastName}
               </p>
               <p className="flex items-center gap-1 text-[10px] sm:text-xs text-richblack-400">
@@ -130,11 +134,16 @@ const CourseReviewModal = ({ setReviewModal }) => {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 sm:space-y-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-5 sm:space-y-6"
+          >
             {/* Rating Stars */}
-            <div className="flex flex-col items-center gap-2 sm:gap-3
+            <div
+              className="flex flex-col items-center gap-2 sm:gap-3
               p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-richblack-700/30
-              border border-richblack-700">
+              border border-richblack-700"
+            >
               <p className="text-xs sm:text-sm text-richblack-300 font-medium">
                 How would you rate this course?
               </p>
@@ -157,8 +166,8 @@ const CourseReviewModal = ({ setReviewModal }) => {
                       ratingValue >= 4
                         ? "bg-emerald-500/15 text-emerald-400"
                         : ratingValue >= 3
-                        ? "bg-yellow-50/15 text-yellow-50"
-                        : "bg-orange-500/15 text-orange-400"
+                          ? "bg-yellow-50/15 text-yellow-50"
+                          : "bg-orange-500/15 text-orange-400"
                     }`}
                 >
                   {ratingLabels[ratingValue]}
@@ -172,8 +181,7 @@ const CourseReviewModal = ({ setReviewModal }) => {
                 htmlFor="courseExperience"
                 className="text-xs sm:text-sm font-semibold text-richblack-200"
               >
-                Your Experience{" "}
-                <span className="text-pink-200">*</span>
+                Your Experience <span className="text-pink-200">*</span>
               </label>
               <textarea
                 id="courseExperience"
@@ -201,9 +209,11 @@ const CourseReviewModal = ({ setReviewModal }) => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center
+            <div
+              className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center
               justify-end gap-2 sm:gap-3 pt-2 sm:pt-4
-              border-t border-richblack-700/50">
+              border-t border-richblack-700/50"
+            >
               <button
                 type="button"
                 onClick={() => setReviewModal(false)}

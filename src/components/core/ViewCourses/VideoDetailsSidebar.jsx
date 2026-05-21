@@ -1,9 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { BsChevronDown } from "react-icons/bs";
-import {
-  IoIosArrowBack,
-  IoIosArrowForward,
-} from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import {
   HiOutlineCheckCircle,
   HiOutlinePlay,
@@ -32,15 +29,14 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
   useEffect(() => {
     if (!courseSectionData.length) return;
     const currentSectionIndx = courseSectionData.findIndex(
-      (data) => data._id === sectionId
+      (data) => data._id === sectionId,
     );
     const currentSubSectionIndx = courseSectionData?.[
       currentSectionIndx
     ]?.SubSection.findIndex((data) => data._id === subSectionId);
     const activeSubSectionId =
-      courseSectionData[currentSectionIndx]?.SubSection?.[
-        currentSubSectionIndx
-      ]?._id;
+      courseSectionData[currentSectionIndx]?.SubSection?.[currentSubSectionIndx]
+        ?._id;
     setActiveStatus(courseSectionData?.[currentSectionIndx]?._id);
     setVideoBarActive(activeSubSectionId);
   }, [courseSectionData, courseEntireData, location.pathname]);
@@ -77,11 +73,13 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
           <button
             onClick={() => navigate(`/dashboard/enrolled-courses`)}
             className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-richblack-300
-              hover:text-white transition-colors duration-200 group"
+              hover:text-richblack-900 transition-colors duration-200 group"
           >
-            <div className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8
+            <div
+              className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8
               rounded-lg bg-richblack-700 group-hover:bg-richblack-600
-              transition-colors duration-200">
+              transition-colors duration-200"
+            >
               <IoIosArrowBack className="text-sm sm:text-base" />
             </div>
             <span className="hidden sm:inline">Back</span>
@@ -92,7 +90,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
             onClick={() => setMobileOpen(false)}
             className="lg:hidden flex items-center justify-center w-8 h-8
               rounded-lg bg-richblack-700 hover:bg-richblack-600
-              text-richblack-300 hover:text-white transition-all duration-200"
+              text-richblack-300 hover:text-richblack-900 transition-all duration-200"
           >
             <HiOutlineX className="text-lg" />
           </button>
@@ -102,7 +100,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
             onClick={() => setSidebarOpen(false)}
             className="hidden lg:flex items-center justify-center w-8 h-8
               rounded-lg bg-richblack-700 hover:bg-richblack-600
-              text-richblack-300 hover:text-white transition-all duration-200"
+              text-richblack-300 hover:text-richblack-900 transition-all duration-200"
             title="Collapse sidebar"
           >
             <IoIosArrowBack className="text-base" />
@@ -173,8 +171,10 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
               onClick={() => handleToggleSection(course?._id)}
             >
               <div className="flex-1 min-w-0">
-                <p className="text-xs sm:text-sm font-semibold text-richblack-100 truncate
-                  group-hover:text-white transition-colors">
+                <p
+                  className="text-xs sm:text-sm font-semibold text-richblack-100 truncate
+                  group-hover:text-richblack-900 transition-colors"
+                >
                   {course?.sectionName}
                 </p>
                 <p className="text-[10px] sm:text-xs text-richblack-400 mt-0.5">
@@ -183,7 +183,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                   {" · "}
                   {
                     course?.SubSection.filter((sub) =>
-                      completedLectures.includes(sub._id)
+                      completedLectures.includes(sub._id),
                     ).length
                   }
                   /{course?.SubSection.length} done
@@ -212,7 +212,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                       fill="none"
                       strokeDasharray={`${
                         (course?.SubSection.filter((sub) =>
-                          completedLectures.includes(sub._id)
+                          completedLectures.includes(sub._id),
                         ).length /
                           course?.SubSection.length) *
                         62.83
@@ -256,7 +256,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                       }`}
                     onClick={() => {
                       navigate(
-                        `/view-course/${courseEntireData?._id}/section/${course?._id}/sub-section/${topic?._id}`
+                        `/view-course/${courseEntireData?._id}/section/${course?._id}/sub-section/${topic?._id}`,
                       );
                       setVideoBarActive(topic._id);
                     }}
@@ -264,18 +264,24 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                     {/* Status Indicator */}
                     <div className="flex-shrink-0">
                       {isCompleted ? (
-                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500/20
-                          flex items-center justify-center text-caribbeangreen-400">
+                        <div
+                          className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500/20
+                          flex items-center justify-center text-caribbeangreen-400"
+                        >
                           <HiOutlineCheckCircle className="text-xs sm:text-sm text-emerald-400 font-bold" />
                         </div>
                       ) : isActive ? (
-                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-yellow-50/20
-                          flex items-center justify-center">
+                        <div
+                          className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-yellow-50/20
+                          flex items-center justify-center"
+                        >
                           <HiOutlinePlay className="text-[10px] sm:text-xs text-yellow-50 ml-0.5" />
                         </div>
                       ) : (
-                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-richblack-600
-                          group-hover:border-richblack-500 transition-colors" />
+                        <div
+                          className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-richblack-600
+                          group-hover:border-richblack-500 transition-colors"
+                        />
                       )}
                     </div>
 
@@ -286,8 +292,8 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                         isActive
                           ? "text-yellow-50 font-semibold"
                           : isCompleted
-                          ? "text-richblack-300"
-                          : "text-richblack-200 group-hover:text-richblack-100"
+                            ? "text-richblack-300"
+                            : "text-richblack-200 group-hover:text-richblack-100"
                       }`}
                     >
                       {topic.title}
@@ -297,10 +303,14 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                     {isActive && (
                       <div className="ml-auto flex-shrink-0 flex gap-[2px]">
                         <div className="w-[2px] h-2 sm:h-3 bg-yellow-50 rounded-full animate-pulse" />
-                        <div className="w-[2px] h-3 sm:h-4 bg-yellow-50 rounded-full animate-pulse"
-                          style={{ animationDelay: "150ms" }} />
-                        <div className="w-[2px] h-1.5 sm:h-2 bg-yellow-50 rounded-full animate-pulse"
-                          style={{ animationDelay: "300ms" }} />
+                        <div
+                          className="w-[2px] h-3 sm:h-4 bg-yellow-50 rounded-full animate-pulse"
+                          style={{ animationDelay: "150ms" }}
+                        />
+                        <div
+                          className="w-[2px] h-1.5 sm:h-2 bg-yellow-50 rounded-full animate-pulse"
+                          style={{ animationDelay: "300ms" }}
+                        />
                       </div>
                     )}
                   </button>
@@ -368,7 +378,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
             w-8 h-16 rounded-r-xl
             bg-richblack-700 hover:bg-richblack-600
             border border-l-0 border-richblack-600
-            text-richblack-300 hover:text-white
+            text-richblack-300 hover:text-richblack-900
             transition-all duration-300 hover:w-10
             shadow-lg shadow-richblack-900/50"
           title="Open sidebar"

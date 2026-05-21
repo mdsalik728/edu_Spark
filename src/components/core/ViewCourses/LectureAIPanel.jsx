@@ -102,7 +102,7 @@ const FormattedResponse = ({ text }) => {
           return (
             <h3
               key={i}
-              className="text-sm sm:text-base font-bold text-white mt-3 mb-1
+              className="text-sm sm:text-base font-bold text-richblack-900 mt-3 mb-1
                 border-b border-richblack-600 pb-1"
             >
               {line.replace("## ", "")}
@@ -126,7 +126,9 @@ const FormattedResponse = ({ text }) => {
         if (line.match(/^[-*]\s/)) {
           return (
             <div key={i} className="flex items-start gap-2 ml-2">
-              <span className="text-yellow-50 mt-1 flex-shrink-0 text-xs">•</span>
+              <span className="text-yellow-50 mt-1 flex-shrink-0 text-xs">
+                •
+              </span>
               <span className="text-richblack-200">
                 {line.replace(/^[-*]\s/, "")}
               </span>
@@ -139,8 +141,10 @@ const FormattedResponse = ({ text }) => {
           const num = line.match(/^(\d+)\./)[1];
           return (
             <div key={i} className="flex items-start gap-2 ml-2">
-              <span className="text-yellow-50 font-bold flex-shrink-0 text-xs
-                w-4 text-right mt-0.5">
+              <span
+                className="text-yellow-50 font-bold flex-shrink-0 text-xs
+                w-4 text-right mt-0.5"
+              >
                 {num}.
               </span>
               <span className="text-richblack-200">
@@ -157,12 +161,12 @@ const FormattedResponse = ({ text }) => {
             <p key={i} className="text-richblack-200">
               {parts.map((part, j) =>
                 j % 2 === 1 ? (
-                  <strong key={j} className="text-white font-semibold">
+                  <strong key={j} className="text-richblack-900 font-semibold">
                     {part}
                   </strong>
                 ) : (
                   part
-                )
+                ),
               )}
             </p>
           );
@@ -192,9 +196,10 @@ const ChatMessage = ({ message }) => {
       <div
         className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full
           flex items-center justify-center text-xs font-bold
-          ${isUser
-            ? "bg-yellow-50 text-richblack-900"
-            : "bg-gradient-to-br from-purple-500 to-blue-500 text-white"
+          ${
+            isUser
+              ? "bg-yellow-50 text-richblack-900"
+              : "bg-gradient-to-br from-purple-500 to-blue-500 text-white"
           }`}
       >
         {isUser ? "You" : <FiCpu className="text-sm" />}
@@ -207,9 +212,10 @@ const ChatMessage = ({ message }) => {
       >
         <div
           className={`rounded-2xl px-3 sm:px-4 py-2 sm:py-3
-            ${isUser
-              ? "bg-yellow-50 text-richblack-900 rounded-tr-sm"
-              : "bg-richblack-700 border border-richblack-600 rounded-tl-sm"
+            ${
+              isUser
+                ? "bg-yellow-50 text-richblack-900 rounded-tr-sm"
+                : "bg-richblack-700 border border-richblack-600 rounded-tl-sm"
             }`}
         >
           {isUser ? (
@@ -220,9 +226,7 @@ const ChatMessage = ({ message }) => {
         </div>
 
         {/* Copy button for AI responses */}
-        {!isUser && message.content && (
-          <CopyButton text={message.content} />
-        )}
+        {!isUser && message.content && <CopyButton text={message.content} />}
       </div>
     </div>
   );
@@ -290,22 +294,25 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
           courseId,
           question: userMessage,
         },
-        token
+        token,
       );
-      console.log("ai response",res);
+      console.log("ai response", res);
 
-      const aiAnswer = res?.answer || res?.response || res || "No response received.";
+      const aiAnswer =
+        res?.answer || res?.response || res || "No response received.";
 
       setChatHistory((prev) => [
         ...prev,
         {
           role: "ai",
-          content: typeof aiAnswer === "string" ? aiAnswer : JSON.stringify(aiAnswer),
+          content:
+            typeof aiAnswer === "string" ? aiAnswer : JSON.stringify(aiAnswer),
           id: Date.now() + 1,
         },
       ]);
     } catch (error) {
-      const errMsg = error?.response?.data?.message || "Failed to get AI response";
+      const errMsg =
+        error?.response?.data?.message || "Failed to get AI response";
       toast.error(errMsg);
       setChatHistory((prev) => [
         ...prev,
@@ -328,16 +335,19 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
     setLoadingSummary(true);
 
     try {
-      const res = await getLectureSummary(
-        { subSectionId, courseId },
-        token
-      );
+      const res = await getLectureSummary({ subSectionId, courseId }, token);
 
-      const summaryText = res?.summary || res?.content || res || "No summary available.";
-      setSummary(typeof summaryText === "string" ? summaryText : JSON.stringify(summaryText));
+      const summaryText =
+        res?.summary || res?.content || res || "No summary available.";
+      setSummary(
+        typeof summaryText === "string"
+          ? summaryText
+          : JSON.stringify(summaryText),
+      );
       setSummaryFetched(true);
     } catch (error) {
-      const errMsg = error?.response?.data?.message || "Failed to generate summary";
+      const errMsg =
+        error?.response?.data?.message || "Failed to generate summary";
       toast.error(errMsg);
       setSummary("Failed to load summary. Please try again.");
     } finally {
@@ -351,16 +361,17 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
     setLoadingNotes(true);
 
     try {
-      const res = await generateLectureNotes(
-        { subSectionId, courseId },
-        token
-      );
+      const res = await generateLectureNotes({ subSectionId, courseId }, token);
 
-      const notesText = res?.notes || res?.content || res || "No notes available.";
-      setNotes(typeof notesText === "string" ? notesText : JSON.stringify(notesText));
+      const notesText =
+        res?.notes || res?.content || res || "No notes available.";
+      setNotes(
+        typeof notesText === "string" ? notesText : JSON.stringify(notesText),
+      );
       setNotesFetched(true);
     } catch (error) {
-      const errMsg = error?.response?.data?.message || "Failed to generate notes";
+      const errMsg =
+        error?.response?.data?.message || "Failed to generate notes";
       toast.error(errMsg);
       setNotes("Failed to generate notes. Please try again.");
     } finally {
@@ -387,10 +398,11 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
   ];
 
   return (
-    <div className="rounded-xl sm:rounded-2xl bg-richblack-800
+    <div
+      className="rounded-xl sm:rounded-2xl bg-richblack-800
       border border-richblack-700 overflow-hidden mt-6 sm:mt-8
-      shadow-lg shadow-richblack-900/30">
-
+      shadow-lg shadow-richblack-900/30"
+    >
       {/* ── Panel Header ───────────────────────────────────────────── */}
       <button
         onClick={() => setIsExpanded((prev) => !prev)}
@@ -402,17 +414,21 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
       >
         <div className="flex items-center gap-2.5 sm:gap-3x`">
           {/* AI Icon */}
-          <div className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9
+          <div
+            className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9
             rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/20
-            border border-purple-500/20">
+            border border-purple-500/20"
+          >
             <FiCpu className="text-sm sm:text-base text-purple-400" />
           </div>
           <div className="text-left">
-            <p className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+            <p className="text-sm sm:text-base font-bold text-richblack-900 flex items-center gap-2">
               AI Learning Assistant
-              <span className="text-[10px] font-normal px-1.5 py-0.5
+              <span
+                className="text-[10px] font-normal px-1.5 py-0.5
                 rounded-full bg-purple-500/20 text-purple-300 border
-                border-purple-500/20">
+                border-purple-500/20"
+              >
                 Beta
               </span>
             </p>
@@ -426,11 +442,15 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
           {/* Animated dot */}
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           {isExpanded ? (
-            <HiOutlineChevronUp className="text-richblack-400 text-lg
-              group-hover:text-richblack-200 transition-colors" />
+            <HiOutlineChevronUp
+              className="text-richblack-400 text-lg
+              group-hover:text-richblack-200 transition-colors"
+            />
           ) : (
-            <HiOutlineChevronDown className="text-richblack-400 text-lg
-              group-hover:text-richblack-200 transition-colors" />
+            <HiOutlineChevronDown
+              className="text-richblack-400 text-lg
+              group-hover:text-richblack-200 transition-colors"
+            />
           )}
         </div>
       </button>
@@ -470,16 +490,22 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
         {activeTab === "ask" && (
           <div className="flex flex-col h-[400px] sm:h-[450px]">
             {/* Chat Messages */}
-            <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4
-              custom-scrollbar">
+            <div
+              className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4
+              custom-scrollbar"
+            >
               {chatHistory.length === 0 ? (
                 /* Empty State */
-                <div className="flex flex-col items-center justify-center
-                  h-full gap-4 sm:gap-6 py-4">
-                  <div className="flex items-center justify-center
+                <div
+                  className="flex flex-col items-center justify-center
+                  h-full gap-4 sm:gap-6 py-4"
+                >
+                  <div
+                    className="flex items-center justify-center
                     w-14 h-14 sm:w-16 sm:h-16 rounded-2xl
                     bg-gradient-to-br from-purple-500/20 to-blue-500/20
-                    border border-purple-500/20">
+                    border border-purple-500/20"
+                  >
                     <FiCpu className="text-2xl sm:text-3xl text-purple-400" />
                   </div>
                   <div className="text-center">
@@ -489,15 +515,18 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
                     <p className="text-xs sm:text-sm text-richblack-400 max-w-[260px]">
                       I'm powered by AI and can answer questions specific to
                       <span className="text-yellow-50 font-medium">
-                        {" "}{videoData?.title || "this lecture"}
+                        {" "}
+                        {videoData?.title || "this lecture"}
                       </span>
                     </p>
                   </div>
 
                   {/* Suggested Questions */}
                   <div className="w-full space-y-2">
-                    <p className="text-[10px] sm:text-xs text-richblack-500
-                      text-center uppercase tracking-wider">
+                    <p
+                      className="text-[10px] sm:text-xs text-richblack-500
+                      text-center uppercase tracking-wider"
+                    >
                       Try asking
                     </p>
                     <div className="grid grid-cols-2 gap-2">
@@ -528,20 +557,33 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
                   {/* AI Typing Indicator */}
                   {askingAI && (
                     <div className="flex items-center gap-2 sm:gap-3">
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full
+                      <div
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full
                         bg-gradient-to-br from-purple-500 to-blue-500
-                        flex items-center justify-center flex-shrink-0">
+                        flex items-center justify-center flex-shrink-0"
+                      >
                         <FiCpu className="text-white text-sm" />
                       </div>
-                      <div className="bg-richblack-700 border border-richblack-600
-                        rounded-2xl rounded-tl-sm px-4 py-3">
+                      <div
+                        className="bg-richblack-700 border border-richblack-600
+                        rounded-2xl rounded-tl-sm px-4 py-3"
+                      >
                         <div className="flex items-center gap-1">
-                          <div className="w-1.5 h-1.5 bg-richblack-400 rounded-full
-                            animate-bounce" style={{ animationDelay: "0ms" }} />
-                          <div className="w-1.5 h-1.5 bg-richblack-400 rounded-full
-                            animate-bounce" style={{ animationDelay: "150ms" }} />
-                          <div className="w-1.5 h-1.5 bg-richblack-400 rounded-full
-                            animate-bounce" style={{ animationDelay: "300ms" }} />
+                          <div
+                            className="w-1.5 h-1.5 bg-richblack-400 rounded-full
+                            animate-bounce"
+                            style={{ animationDelay: "0ms" }}
+                          />
+                          <div
+                            className="w-1.5 h-1.5 bg-richblack-400 rounded-full
+                            animate-bounce"
+                            style={{ animationDelay: "150ms" }}
+                          />
+                          <div
+                            className="w-1.5 h-1.5 bg-richblack-400 rounded-full
+                            animate-bounce"
+                            style={{ animationDelay: "300ms" }}
+                          />
                         </div>
                       </div>
                     </div>
@@ -553,8 +595,10 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
 
             {/* Clear Chat */}
             {chatHistory.length > 0 && (
-              <div className="px-3 sm:px-4 py-1.5 flex justify-end
-                border-t border-richblack-700/50">
+              <div
+                className="px-3 sm:px-4 py-1.5 flex justify-end
+                border-t border-richblack-700/50"
+              >
                 <button
                   onClick={() => setChatHistory([])}
                   className="flex items-center gap-1 text-[10px] sm:text-xs
@@ -629,17 +673,23 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
         {activeTab === "summary" && (
           <div className="p-4 sm:p-6">
             {loadingSummary ? (
-              <div className="flex flex-col items-center justify-center
-                gap-4 py-12 sm:py-16">
+              <div
+                className="flex flex-col items-center justify-center
+                gap-4 py-12 sm:py-16"
+              >
                 <div className="relative">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl
+                  <div
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl
                     bg-gradient-to-br from-blue-500/20 to-purple-500/20
                     border border-blue-500/20
-                    flex items-center justify-center">
+                    flex items-center justify-center"
+                  >
                     <FiFileText className="text-xl sm:text-2xl text-blue-400" />
                   </div>
-                  <BiLoaderAlt className="absolute -top-1 -right-1 text-lg
-                    text-purple-400 animate-spin" />
+                  <BiLoaderAlt
+                    className="absolute -top-1 -right-1 text-lg
+                    text-purple-400 animate-spin"
+                  />
                 </div>
                 <div className="text-center">
                   <p className="text-sm sm:text-base font-medium text-richblack-200">
@@ -679,16 +729,20 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
                 </div>
 
                 {/* Summary Content */}
-                <div className="rounded-xl bg-richblack-700/50
+                <div
+                  className="rounded-xl bg-richblack-700/50
                   border border-richblack-600/50
-                  p-4 sm:p-5 max-h-[350px] overflow-y-auto custom-scrollbar">
+                  p-4 sm:p-5 max-h-[350px] overflow-y-auto custom-scrollbar"
+                >
                   <FormattedResponse text={summary} />
                 </div>
               </div>
             ) : (
               /* Error / Empty */
-              <div className="flex flex-col items-center justify-center
-                gap-4 py-12">
+              <div
+                className="flex flex-col items-center justify-center
+                gap-4 py-12"
+              >
                 <p className="text-sm text-richblack-400">
                   Failed to load summary
                 </p>
@@ -714,17 +768,23 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
         {activeTab === "notes" && (
           <div className="p-4 sm:p-6">
             {loadingNotes ? (
-              <div className="flex flex-col items-center justify-center
-                gap-4 py-12 sm:py-16">
+              <div
+                className="flex flex-col items-center justify-center
+                gap-4 py-12 sm:py-16"
+              >
                 <div className="relative">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl
+                  <div
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl
                     bg-gradient-to-br from-emerald-500/20 to-teal-500/20
                     border border-emerald-500/20
-                    flex items-center justify-center">
+                    flex items-center justify-center"
+                  >
                     <FiBook className="text-xl sm:text-2xl text-emerald-400" />
                   </div>
-                  <BiLoaderAlt className="absolute -top-1 -right-1 text-lg
-                    text-emerald-400 animate-spin" />
+                  <BiLoaderAlt
+                    className="absolute -top-1 -right-1 text-lg
+                    text-emerald-400 animate-spin"
+                  />
                 </div>
                 <div className="text-center">
                   <p className="text-sm sm:text-base font-medium text-richblack-200">
@@ -764,9 +824,11 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
                 </div>
 
                 {/* Notes Content */}
-                <div className="rounded-xl bg-richblack-700/50
+                <div
+                  className="rounded-xl bg-richblack-700/50
                   border border-richblack-600/50
-                  p-4 sm:p-5 max-h-[350px] overflow-y-auto custom-scrollbar">
+                  p-4 sm:p-5 max-h-[350px] overflow-y-auto custom-scrollbar"
+                >
                   <FormattedResponse text={notes} />
                 </div>
 
@@ -795,8 +857,10 @@ const LectureAIPanel = ({ subSectionId, courseId, token, videoData }) => {
               </div>
             ) : (
               /* Error / Empty */
-              <div className="flex flex-col items-center justify-center
-                gap-4 py-12">
+              <div
+                className="flex flex-col items-center justify-center
+                gap-4 py-12"
+              >
                 <p className="text-sm text-richblack-400">
                   Failed to generate notes
                 </p>

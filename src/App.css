@@ -20,7 +20,7 @@ body {
 }
 
 *::-webkit-scrollbar-track {
-  background: #000814;
+  background: #f1f2ff;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -35,35 +35,34 @@ body {
   visibility: visible;
 }
 
-.mobile-nav{
+.mobile-nav {
   /* border: 3px solid red; */
   visibility: visible;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap:5px;
+  gap: 5px;
   position: absolute;
-  top:0;
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   min-height: 100vh;
   width: 100vw;
   font-size: 1.2rem;
-  background-color: black;
+  background-color: #f9f9f9;
   z-index: -1;
   transition: all 0.5s ease-in-out;
   transform: translateX(-100%);
 }
-.hideNav{
+.hideNav {
   transform: translateX(0%);
 }
-.hideMenuBtn{
+.hideMenuBtn {
   display: none;
-  
 }
-.showMenuBtn{
+.showMenuBtn {
   display: visible;
 }
 /* Hide default styling of details/summary */
@@ -80,28 +79,30 @@ details > summary::-webkit-details-marker {
   display: grid;
 }
 .custom-loader::before,
-.custom-loader::after {    
-  content:"";
+.custom-loader::after {
+  content: "";
   grid-area: 1/1;
-  --c: radial-gradient(farthest-side,#766DF4 92%,#0000);
-  background: 
-    var(--c) 50%  0, 
-    var(--c) 50%  100%, 
-    var(--c) 100% 50%, 
-    var(--c) 0    50%;
+  --c: radial-gradient(farthest-side, #766df4 92%, #0000);
+  background:
+    var(--c) 50% 0,
+    var(--c) 50% 100%,
+    var(--c) 100% 50%,
+    var(--c) 0 50%;
   background-size: 12px 12px;
   background-repeat: no-repeat;
   animation: s2 1s infinite;
 }
 .custom-loader::before {
-margin:4px;
-filter:hue-rotate(45deg);
-background-size: 8px 8px;
-animation-timing-function: linear
+  margin: 4px;
+  filter: hue-rotate(45deg);
+  background-size: 8px 8px;
+  animation-timing-function: linear;
 }
 
-@keyframes s2{ 
-100%{transform: rotate(.5turn)}
+@keyframes s2 {
+  100% {
+    transform: rotate(0.5turn);
+  }
 }
 
 .codeblock1 {
@@ -283,11 +284,14 @@ animation-timing-function: linear
   @apply text-2xl font-bold text-richblack-5 lg:text-4xl;
 }
 
-
 /* ─── Custom Animations ───────────────────────────────────── */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeInUp {
@@ -382,7 +386,7 @@ animation-timing-function: linear
 }
 
 .video-react .video-react-progress-holder .video-react-play-progress {
-  background: #FFD60A !important;
+  background: #ffd60a !important;
 }
 
 .video-react .video-react-slider:focus {

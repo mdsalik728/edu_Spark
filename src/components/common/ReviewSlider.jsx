@@ -25,7 +25,7 @@ function ReviewSlider() {
     (async () => {
       const { data } = await apiConnector(
         "GET",
-        ratingsEndpoints.REVIEWS_DETAILS_API
+        ratingsEndpoints.REVIEWS_DETAILS_API,
       );
       if (data?.success) {
         setReviews(data?.data);
@@ -36,8 +36,8 @@ function ReviewSlider() {
   // console.log(reviews)
 
   return (
-    <div className="relative  my-20 flex flex-col w-11/12 max-w-maxContent mx-auto  items-center justify-between gap-8 bg-richblack-900 text-white">
-      <h2 className="font-semibold text-4xl text-center  text-white">
+    <div className="relative  my-20 flex flex-col w-11/12 max-w-maxContent mx-auto  items-center justify-between gap-8 bg-richblack-900 text-richblack-900">
+      <h2 className="font-semibold text-4xl text-center  text-richblack-900">
         Review from Other Learners
       </h2>
       <div className="max-h-max max-w-maxContent flex items-center px-4">
@@ -46,29 +46,27 @@ function ReviewSlider() {
           spaceBetween={24}
           loop={true}
           freeMode={true}
-          breakpoints={ {
+          breakpoints={{
             // when window width is <= 499px
             640: {
-                slidesPerView: 2,
-                spaceBetweenSlides: 50
+              slidesPerView: 2,
+              spaceBetweenSlides: 50,
             },
             // when window width is <= 999px
             768: {
-                slidesPerView: 3,
-                spaceBetweenSlides: 50
+              slidesPerView: 3,
+              spaceBetweenSlides: 50,
             },
             // when window width is <= 999px
             1024: {
-                slidesPerView: 4,
-                spaceBetweenSlides: 50
-            }
-        }}
+              slidesPerView: 4,
+              spaceBetweenSlides: 50,
+            },
+          }}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,
-          }
-        
-        }
+          }}
           modules={[FreeMode, Pagination, Autoplay]}
           className="w-screen "
         >
